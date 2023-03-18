@@ -63,6 +63,7 @@ function Plot() {
 
     return (
         <div>
+            <p>Word of advice: Last Point connects to the Point 1, which is the initial coordinates you've entered.</p>
             <input type="number" id="origLatId" value={origLat} name="origLat" placeholder="Enter Latitude" />
             <input type="number" id="origLongId" value={origLong} name="origLong" placeholder="Enter Longitude" />
             <table className="table table-striped">
