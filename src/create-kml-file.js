@@ -22,7 +22,7 @@ let $13 = '\n</Document>\n</kml>';
 //let line1 = angle(document.getElementById("deg1").value, document.getElementById("min1").value, document.getElementById("sec1").value);
 // Lat is 15.432510, Long is 120.603607
 let objectDir1st; let objectDeg; let objectMin; let objectDir2nd; let objectDist;
-let origLat, origLong, fileName;
+let origLat, origLong, origDir1st, origDeg, origMin, origDir2nd, origDist, fileName;
 
 const downloadKmlFile = () => {
     const element = document.createElement("a");
@@ -31,12 +31,24 @@ const downloadKmlFile = () => {
     objectMin = document.querySelectorAll('.Minclass input[value]');
     objectDir2nd = document.querySelectorAll(".Dir2nd" + count);
     objectDist = document.querySelectorAll('.Distclass input[value]');
+
     origLat = Number(document.querySelector("#origLatId").value);
     origLong = Number(document.querySelector("#origLongId").value)
-    if (origLat == "" || origLat == " ") {
+    origDir1st = document.querySelector(".Dir1stIniclass select").value
+    origDeg = Number(document.querySelector("#origDegId").value);
+    origMin = Number(document.querySelector("#origMinId").value)
+    origDir2nd = document.querySelector(".Dir2ndIniclass select").value
+    origDist = Number(document.querySelector("#origDistId").value)
+    if (origDir1st === "card1") {
         console.log("Something went wrong. Gave you an alert."); alert("Please check your inputs."); return
     }
-    if (origLong == "" || origLong == " ") {
+    if (origDir2nd === "card2") {
+        console.log("Something went wrong. Gave you an alert."); alert("Please check your inputs."); return
+    }
+    if (origLat === "" || origLat === " ") {
+        console.log("Something went wrong. Gave you an alert."); alert("Please check your inputs."); return
+    }
+    if (origLong === "" || origLong === " ") {
         console.log("Something went wrong. Gave you an alert."); alert("Please check your inputs."); return
     }
 
@@ -45,6 +57,10 @@ const downloadKmlFile = () => {
     const arrayDir1st = []; const arrayDeg = []; const arrayMin = []; const arrayDir2nd = []; const arrayDist = [];
     let arrayLat = []; arrayLat.push(origLat)
     let arrayLong = []; arrayLong.push(origLong)
+    arrayDir1st.push(origDir1st, objectDir1st.value); arrayDeg.push(origDeg, objectDeg.value);
+    arrayMin.push(origMin, objectMin.value); arrayDir2nd.push(origDir2nd, objectDir2nd.value);
+    arrayDist.push(origDist, objectDist.value)
+
     const final_array = [];
     const points_array = [];
     let c = 0; let o = 0; let i = 0; let t = 0; let u = 0; //console.log(arrayDir1st[0].value)
@@ -54,58 +70,72 @@ const downloadKmlFile = () => {
     while (t < objectDir2nd.length) { arrayDir2nd.push(objectDir2nd[t].value); t++; }
     while (u < objectDist.length) { if (objectDist[u].value === "" || objectDist[u].value === " ") { alert("Please check your inputs."); return } arrayDist.push(objectDist[u].getAttribute('value')); u++; }
 
-    for (let s = 0; s < (count); s++) {
+    for (let s = 0; s <= (count - 1); s++) {
         if (arrayDir1st[s] === "north" && arrayDir2nd[s] === "west") {
             arrayLat.push(arrayLat[arrayLat.length - 1] +
-                (Math.cos(toRadians(angle(objectDeg[s].value, objectMin[s].value) / 10)) * objectDist[s].value) / 110000)
+                (Math.cos(toRadians(angle(arrayDeg[s], arrayMin[s]) / 10)) * arrayDist[s]) / 110000)
             arrayLong.push(arrayLong[arrayLong.length - 1] -
-                (Math.sin(toRadians(angle(objectDeg[s].value, objectMin[s].value) / 10)) * objectDist[s].value) / 110000)
+                (Math.sin(toRadians(angle(arrayDeg[s], arrayMin[s]) / 10)) * arrayDist[s]) / 110000)
+            console.log(`Lat${i} for NW: ${arrayLat}\nLong${i} for NW: ${arrayLong}`)
         }
         else if (arrayDir1st[s] === "north" && arrayDir2nd[s] === "east") {
             arrayLat.push(arrayLat[arrayLat.length - 1] +
-                (Math.cos(toRadians(angle(objectDeg[s].value, objectMin[s].value) / 10)) * objectDist[s].value) / 110000)
+                (Math.cos(toRadians(angle(arrayDeg[s], arrayMin[s]) / 10)) * arrayDist[s]) / 110000)
             arrayLong.push(arrayLong[arrayLong.length - 1] +
-                (Math.sin(toRadians(angle(objectDeg[s].value, objectMin[s].value) / 10)) * objectDist[s].value) / 110000)
+                (Math.sin(toRadians(angle(arrayDeg[s], arrayMin[s]) / 10)) * arrayDist[s]) / 110000)
+            console.log(`Lat${i} for NE: ${arrayLat}\nLong${i} for NE: ${arrayLong}`)
         }
         else if (arrayDir1st[s] === "south" && arrayDir2nd[s] === "west") {
             arrayLat.push(arrayLat[arrayLat.length - 1] -
-                (Math.cos(toRadians(angle(objectDeg[s].value, objectMin[s].value) / 10)) * objectDist[s].value) / 110000)
+                (Math.cos(toRadians(angle(arrayDeg[s], arrayMin[s]) / 10)) * arrayDist[s]) / 110000)
             arrayLong.push(arrayLong[arrayLong.length - 1] -
-                (Math.sin(toRadians(angle(objectDeg[s].value, objectMin[s].value) / 10)) * objectDist[s].value) / 110000)
+                (Math.sin(toRadians(angle(arrayDeg[s], arrayMin[s]) / 10)) * arrayDist[s]) / 110000)
+            console.log(`Lat${i} for SW: ${arrayLat}\nLong${i} for SW: ${arrayLong}`)
         }
         else if (arrayDir1st[s] === "south" && arrayDir2nd[s] === "east") {
             arrayLat.push(arrayLat[arrayLat.length - 1] -
-                (Math.cos(toRadians(angle(objectDeg[s].value, objectMin[s].value) / 10)) * objectDist[s].value) / 110000)
+                (Math.cos(toRadians(angle(arrayDeg[s], arrayMin[s]) / 10)) * arrayDist[s]) / 110000)
             arrayLong.push(arrayLong[arrayLong.length - 1] +
-                (Math.sin(toRadians(angle(objectDeg[s].value, objectMin[s].value) / 10)) * objectDist[s].value) / 110000)
+                (Math.sin(toRadians(angle(arrayDeg[s], arrayMin[s]) / 10)) * arrayDist[s]) / 110000)
+            console.log(`Lat${i} for SE: ${arrayLat}\nLong${i} for SE: ${arrayLong}`)
         }
         else { console.log("Something went wrong. Gave you an alert."); alert("Please check your inputs."); return }
         if (fileName == null || fileName === "") { console.log("Something went wrong. Gave you an alert."); alert("Please check your inputs."); return }
         /*if (arrayDir2nd[s] === "west") {
             arrayLong.push(arrayLong[arrayLong.length - 1] -
-                (Math.sin(toRadians(angle(objectDeg[s].value, objectMin[s].value))) * objectDist[s].value) / 10000)
+                (Math.sin(toRadians(angle(arrayDeg[s], arrayMin[s]))) * arrayDist[s]) / 10000)
         }
         else if (arrayDir2nd[s] === "east") {
             arrayLong.push(arrayLong[arrayLong.length - 1] +
-                (Math.sin(toRadians(angle(objectDeg[s].value, objectMin[s].value))) * objectDist[s].value) / 10000)
+                (Math.sin(toRadians(angle(arrayDeg[s], arrayMin[s]))) * arrayDist[s]) / 10000)
         }
         else { console.log("Something went wrong. Gave you an alert."); alert("Please check your inputs."); return }*/
     }
-    console.log("Insider:", arrayLong + ",,," + arrayLat)
+    console.log(`arrayLong: ${arrayLong}\n arrayLat: ${arrayLat}`)
     let z = 0
     while (z <= count) {
         final_array.push(`${arrayLong[z]},${arrayLat[z]},0`)
         z++
     }
     for (let y = 0; y < count; y++) {
-        points_array.push(`<Placemark id=""><name>Point ${y + 1}</name><LookAt>\n<longitude>${arrayLong[y]}</longitude>\n
+        if (y === 0) {
+            points_array.push(`<Placemark id=""><name>Point of BLLM</name><LookAt>\n<longitude>${arrayLong[y]}</longitude>\n
         <latitude>${arrayLat[y]}</latitude>\n<altitude>0</altitude>\n
         <heading>0</heading>\n<tilt>0</tilt>\n<gx:fovy>30.00000244104212</gx:fovy>\n<range>431.5834488848486</range>\n
         <altitudeMode>absolute</altitudeMode>\n</LookAt>\n<styleUrl>#__managed_style_00CBE2F525278B35F0EF</styleUrl>\n
-        <Point>\n<coordinates>${arrayLong[y]},${arrayLat[y]},0</coordinates>\n</Point>\n</Placemark>`);
+        <Point>\n<coordinates>${arrayLong[y]},${arrayLat[y]},0</coordinates>\n</Point>\n</Placemark>`)
+        }
+        else {
+            points_array.push(`<Placemark id=""><name>Point ${y}</name><LookAt>\n<longitude>${arrayLong[y]}</longitude>\n
+        <latitude>${arrayLat[y]}</latitude>\n<altitude>0</altitude>\n
+        <heading>0</heading>\n<tilt>0</tilt>\n<gx:fovy>30.00000244104212</gx:fovy>\n<range>431.5834488848486</range>\n
+        <altitudeMode>absolute</altitudeMode>\n</LookAt>\n<styleUrl>#__managed_style_00CBE2F525278B35F0EF</styleUrl>\n
+        <Point>\n<coordinates>${arrayLong[y]},${arrayLat[y]},0</coordinates>\n</Point>\n</Placemark>`)
+        }
     }
     final_array.splice(-1, 1);
-    final_array.push(`${arrayLong[0]},${arrayLat[0]},0`)
+    final_array.push(`${arrayLong[1]},${arrayLat[1]},0`)
+    console.log(`Row info: \n${arrayDir1st}\n${arrayDeg}\n${arrayMin}\n${arrayDir2nd}\n${arrayDist}\n`)
     console.log("The final_array:\n" + final_array)
     const file = new Blob([
         $1st
@@ -114,7 +144,7 @@ const downloadKmlFile = () => {
     ],
         { type: "text/plain;charset=utf-8" });
     element.href = URL.createObjectURL(file);
-    element.download = `${fileName}.kml`
+    element.download = `${fileName}.`
     document.body.appendChild(element);
     element.click();
 }
