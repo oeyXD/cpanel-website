@@ -1,5 +1,5 @@
 import { count } from "./Plot"; //import { origLat, origLong, fileName } from "./Plot"
-var angles = require('angles'); angles.SCALE = 360;
+// var angles = require('angles'); angles.SCALE = 360;
 
 function angle(deg, min) { return (deg) + (min / 60) }
 function toRadians(Deg) { return Deg * Math.PI / 180 }
