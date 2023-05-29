@@ -3,7 +3,6 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm audit --force
         - npm rebuild node-sass
         - npm i
     build:
