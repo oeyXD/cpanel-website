@@ -1,17 +1,39 @@
 {
-  "name": "my.cpanel.website",
-  "version": "1.0.0",
-  "description": "This is the second version of our cpanel website because the first one became a shitty one, so I had to just start fresh just to get away from all the frustrating errors that make that first one a shitty one!",
-  "main": "Main.js",
-  "scripts": {
-    "test": "test"
+  "name": "my-cpanel-website",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
   },
-  "keywords": [
-    "plot",
-    "chat",
-    "automation",
-    "web-scraping"
-  ],
-  "author": "Cassandra \"Casey\" Collins",
-  "license": "ISC"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "author": "Casey Collins"
 }

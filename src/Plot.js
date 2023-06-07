@@ -1,4 +1,5 @@
 import downloadKmlFile from './create-kml-file'; import React, { useState } from 'react'
+import "./index.css"
 let num = 1;
 //<input type="text" value={Dir1st} onChange={(event) => onValUpdate(index, event)}
 //                    name="Dir1st" className="form-control" />
@@ -70,6 +71,9 @@ function Plot() {
     return (
         <div>
             <p>45.504265, -73.576780</p>
+            <div >
+                <h4>Notice: This project is a work in progress. It may output inaccurate information.</h4>
+            </div>
             <input type="number" id="origLatId" class="origLatClass" value={origLat} name="origLat" placeholder="Enter BLLM Latitude" />
             <input type="number" id="origLongId" value={origLong} name="origLong" placeholder="Enter BLLM Longitude" />
             <br />
@@ -110,7 +114,7 @@ function Plot() {
             </table>
             <input id="fileNameId" value={fileName} name="fileName" placeholder="Enter File Name" />
             <button primary onClick={downloadKmlFile} >Download</button>
-        </div>
+        </div >
     )
 }
 
