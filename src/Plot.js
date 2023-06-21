@@ -1,7 +1,6 @@
-import downloadKmlFile from './create-kml-file'; import React, { useState } from 'react'
-let num = 1;
-//<input type="text" value={Dir1st} onChange={(event) => onValUpdate(index, event)}
-//                    name="Dir1st" className="form-control" />
+import downloadKmlFile from './create-kml-file';
+import React, { useState } from 'react';
+
 function TableRows({ rows, tableRowRemove, onValUpdate }) {
     return rows.map((rowsData, index) => {
         const { Dir1st, Deg, Min, Dir2nd, Dist } = rowsData;
@@ -39,7 +38,7 @@ function TableRows({ rows, tableRowRemove, onValUpdate }) {
     });
 }
 export let count = 1; console.log("Here is the length of count: " + count); let origLat, origLong, fileName, origDeg, origMin, origDist;
-function Plot() {
+export function Plot() {
     const [rows, initRow] = useState([]);
     const addRowTable = () => {
         const data = { Dir1st: "", Deg: "", Min: "", Dir2nd: "", Dist: "" };
@@ -60,7 +59,9 @@ function Plot() {
         let i = 7; let Nos = [];
         while (i < (count + 6)) {
             console.log("The value of i is : " + i, "\n The value of count.length is :", count)
-            document.querySelector("#root > div:nth-child(3) > table > tbody > tr:nth-child(" + i + ") > td:nth-child(1)").innerHTML = "Point " + Number(i - 6) + " to " + Number(i - 5);
+            try { document.querySelector(`#root > div:nth-child(3) > table > tbody > tr:nth-child(${i}) > td:nth-child(1)`).innerHTML = "Point " + Number(i - 6) + " to " + Number(i - 5) }
+            catch { console.log("There is something wrong with your rig, man!") }
+
 
             //document.querySelector(Nos[i + 7]).innerHTML = "Point " + Nos[1][Nos[1].length - 20] + " to " + i + 1;
             i += 1
@@ -70,6 +71,9 @@ function Plot() {
     return (
         <div>
             <p>45.504265, -73.576780</p>
+            <div >
+                <h4>Notice: This project is a work in progress (WIP). It may output inaccurate information.</h4>
+            </div>
             <input type="number" id="origLatId" class="origLatClass" value={origLat} name="origLat" placeholder="Enter BLLM Latitude" />
             <input type="number" id="origLongId" value={origLong} name="origLong" placeholder="Enter BLLM Longitude" />
             <br />
@@ -110,20 +114,6 @@ function Plot() {
             </table>
             <input id="fileNameId" value={fileName} name="fileName" placeholder="Enter File Name" />
             <button primary onClick={downloadKmlFile} >Download</button>
-        </div>
+        </div >
     )
 }
-
-/*
-<td>Point {num} to {num * 2}</td>
-                        <td><select><option disabled selected value>Direction</option>
-                            <option value="north">N</option><option value="south">S</option></select>
-                        </td>
-                        <td><input placeholder='Degrees' /></td><td><input placeholder='Minutes' /></td>
-                        <td><input placeholder='Seconds' /></td>
-                        <td><select><option disabled selected value>Direction</option>
-                            <option value="east">E</option><option value="west">W</option></select>
-                        </td>
-                        <td><input placeholder='Distance' /></td>
-*/
-export default Plot;

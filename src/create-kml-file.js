@@ -40,16 +40,16 @@ const downloadKmlFile = () => {
     origDir2nd = document.querySelector(".Dir2ndIniclass select").value
     origDist = Number(document.querySelector("#origDistId").value)
     if (origDir1st === "card1") {
-        console.log("Something went wrong. Gave you an alert."); alert("Please check your inputs."); return
+        console.log("Something went wrong. Gave you an alert."); alert("Please check your origDir1st inputs."); return
     }
     if (origDir2nd === "card2") {
-        console.log("Something went wrong. Gave you an alert."); alert("Please check your inputs."); return
+        console.log("Something went wrong. Gave you an alert."); alert("Please check your origDir2nd inputs."); return
     }
     if (origLat === "" || origLat === " ") {
-        console.log("Something went wrong. Gave you an alert."); alert("Please check your inputs."); return
+        console.log("Something went wrong. Gave you an alert."); alert("Please check your origLat inputs."); return
     }
     if (origLong === "" || origLong === " ") {
-        console.log("Something went wrong. Gave you an alert."); alert("Please check your inputs."); return
+        console.log("Something went wrong. Gave you an alert."); alert("Please check your origLong inputs."); return
     }
 
     fileName = document.querySelector("#fileNameId").value
@@ -65,10 +65,10 @@ const downloadKmlFile = () => {
     const points_array = [];
     let c = 0; let o = 0; let i = 0; let t = 0; let u = 0; //console.log(arrayDir1st[0].value)
     while (c < objectDir1st.length) { arrayDir1st.push(objectDir1st[c].value); c++; }
-    while (o < objectDeg.length) { if (objectDeg[o].value === "") { alert("Please check your inputs."); return } arrayDeg.push(objectDeg[o].getAttribute('value')); o++; }
-    while (i < objectMin.length) { if (objectMin[i].value === "") { alert("Please check your inputs."); return } arrayMin.push(objectMin[i].getAttribute('value')); i++; }
+    while (o < objectDeg.length) { if (objectDeg[o].value === "") { alert("Please check your objectDeg.length inputs."); return } arrayDeg.push(objectDeg[o].getAttribute('value')); o++; }
+    while (i < objectMin.length) { if (objectMin[i].value === "") { alert("Please check your objectMin.length inputs."); return } arrayMin.push(objectMin[i].getAttribute('value')); i++; }
     while (t < objectDir2nd.length) { arrayDir2nd.push(objectDir2nd[t].value); t++; }
-    while (u < objectDist.length) { if (objectDist[u].value === "" || objectDist[u].value === " ") { alert("Please check your inputs."); return } arrayDist.push(objectDist[u].getAttribute('value')); u++; }
+    while (u < objectDist.length) { if (objectDist[u].value === "" || objectDist[u].value === " ") { alert("Please check your objectDist.length inputs."); return } arrayDist.push(objectDist[u].getAttribute('value')); u++; }
 
     for (let s = 0; s <= (count - 1); s++) {
         if (arrayDir1st[s] === "north" && arrayDir2nd[s] === "west") {
@@ -100,7 +100,7 @@ const downloadKmlFile = () => {
             console.log(`Lat${i} for SE: ${arrayLat}\nLong${i} for SE: ${arrayLong}`)
         }
         else { console.log("Something went wrong. Gave you an alert."); alert("Please check your inputs."); return }
-        if (fileName == null || fileName === "") { console.log("Something went wrong. Gave you an alert."); alert("Please check your inputs."); return }
+        if (fileName == null || fileName === "") { console.log("Something went wrong. Gave you an alert."); alert("Please check your fileName inputs."); return }
         /*if (arrayDir2nd[s] === "west") {
             arrayLong.push(arrayLong[arrayLong.length - 1] -
                 (Math.sin(toRadians(angle(arrayDeg[s], arrayMin[s]))) * arrayDist[s]) / 10000)
